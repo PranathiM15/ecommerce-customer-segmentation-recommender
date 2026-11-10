@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101820">
+  <title>ORBIT — Customer Intelligence</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="/" aria-label="ORBIT home">
+        <span class="brand-mark">O<span>.</span></span>
+        <span class="brand-copy"><strong>ORBIT</strong><small>COMMERCE INTELLIGENCE</small></span>
+      </a>
+
+      <div class="sidebar-label">WORKSPACE</div>
+      <nav class="primary-nav" aria-label="Main navigation">
+        <button class="nav-link active" data-page="overview"><span class="nav-icon">◫</span> Overview <span class="nav-arrow">↗</span></button>
+        <button class="nav-link" data-page="segments"><span class="nav-icon">◌</span> Customer segments</button>
+        <button class="nav-link" data-page="recommendations"><span class="nav-icon">✳</span> Product studio</button>
+        <button class="nav-link" data-page="transactions"><span class="nav-icon">▤</span> Transactions</button>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <div class="status-card">
+          <span class="status-dot"></span>
+          <div><strong>LOCAL ANALYSIS</strong><small>Private · runs on this device</small></div>
+        </div>
+        <div class="profile-mini"><div class="profile-avatar">PM</div><div><strong>Project workspace</strong><small>Customer segmentation</small></div></div>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div class="breadcrumbs"><span>WORKSPACE</span><b>/</b><strong id="breadcrumb-current">OVERVIEW</strong></div>
+        <div class="topbar-actions">
+          <span class="data-status"><i></i><span id="source-label">DEMO DATA LOADED</span></span>
+          <button class="button button-outline" id="upload-trigger"><span class="button-plus">＋</span> Import CSV</button>
+        </div>
+      </header>
+
+      <section class="page active" id="page-overview">
+        <div class="page-heading">
+          <div>
+            <p class="eyebrow">CUSTOMER INTELLIGENCE <span>·</span> 01</p>
+            <h1>Know your customers.<br><em>Grow with intent.</em></h1>
+            <p class="heading-subtitle">Turn purchase history into clear segments and recommendations your business can act on.</p>
+          </div>
+          <div class="heading-note"><span class="note-index">RFM / K-MEANS / COSINE</span><strong>From transactions<br>to relationships.</strong><span class="note-line"></span></div>
+        </div>
+
+        <div class="kpi-grid" id="kpi-grid">
+          <article class="kpi-card kpi-dark"><div class="kpi-top"><span>TOTAL CUSTOMERS</span><span class="kpi-symbol">◎</span></div><strong id="kpi-customers">—</strong><small>Unique customer profiles</small></article>
+          <article class="kpi-card"><div class="kpi-top"><span>GROSS REVENUE</span><span class="kpi-symbol">£</span></div><strong id="kpi-revenue">—</strong><small>After transaction cleaning</small></article>
+          <article class="kpi-card"><div class="kpi-top"><span>ORDERS PROCESSED</span><span class="kpi-symbol">↗</span></div><strong id="kpi-orders">—</strong><small>Distinct valid invoices</small></article>
+          <article class="kpi-card"><div class="kpi-top"><span>AVERAGE ORDER</span><span class="kpi-symbol">⌁</span></div><strong id="kpi-aov">—</strong><small>Revenue per invoice</small></article>
+        </div>
+
+        <div class="section-heading"><div><p class="eyebrow">THE CUSTOMER PICTURE</p><h2>Four ways to see your audience</h2></div><span class="section-meta" id="date-range">—</span></div>
+        <div class="visual-grid">
+          <article class="panel panel-wide"><div class="panel-heading"><div><span class="panel-kicker">01 / SEGMENT MIX</span><h3>Who is buying?</h3></div><span class="chart-tag">CUSTOMER COUNT</span></div><img class="chart-image" src="/segment_mix.png" alt="Bar chart showing customer counts by segment"></article>
+          <article class="panel"><div class="panel-heading"><div><span class="panel-kicker">02 / CLUSTER MAP</span><h3>How they behave</h3></div><span class="chart-tag">2D VIEW</span></div><img class="chart-image" src="/segment_scatter.png" alt="Scatter plot showing K-Means customer clusters"></article>
+        </div>
+
+        <div class="section-heading section-heading-tight"><div><p class="eyebrow">SEGMENT SNAPSHOT</p><h2>Make every group meaningful</h2></div><button class="text-button" data-goto="segments">Explore all segments <span>↗</span></button></div>
+        <div class="segment-cards" id="overview-segments"><div class="loading-state">Building customer segments…</div></div>
+
+        <div class="bottom-grid">
+          <article class="panel"><div class="panel-heading"><div><span class="panel-kicker">03 / MODEL CHECK</span><h3>Finding the right K</h3></div><span class="chart-tag">ELBOW METHOD</span></div><img class="chart-image chart-short" src="/elbow_curve.png" alt="Elbow curve for K-Means cluster selection"><p class="panel-footnote" id="silhouette-note">The elbow curve compares within-cluster variation for different cluster counts.</p></article>
+          <article class="panel insight-panel"><span class="panel-kicker">THE METHOD</span><div class="method-step"><b>01</b><div><strong>Build RFM</strong><span>Recency · Frequency · Monetary value</span></div></div><div class="method-step"><b>02</b><div><strong>Find patterns</strong><span>Scale features and group with K-Means</span></div></div><div class="method-step"><b>03</b><div><strong>Recommend next</strong><span>Compare buying profiles with cosine similarity</span></div></div><div class="insight-callout">Good segmentation turns raw activity into a better customer experience.</div></article>
+        </div>
+      </section>
+
+      <section class="page" id="page-segments">
+        <div class="page-title-row"><div><p class="eyebrow">AUDIENCE DESIGN <span>·</span> 02</p><h1>Customer segments</h1><p class="heading-subtitle">Four practical groups, built from each customer's purchase behaviour.</p></div><a class="button button-outline" href="/api/export/segments.csv">↓ Export RFM table</a></div>
+        <div class="segment-cards segment-cards-large" id="all-segments"><div class="loading-state">Loading segment profiles…</div></div>
+        <div class="panel table-panel"><div class="table-header"><div><span class="panel-kicker">CUSTOMER DIRECTORY</span><h3>Explore customer profiles</h3></div><label class="search-box"><span>⌕</span><input id="customer-search" type="search" placeholder="Search customer ID"></label></div><div class="table-wrap"><table><thead><tr><th>CUSTOMER ID</th><th>SEGMENT</th><th>RECENCY</th><th>ORDERS</th><th>MONETARY VALUE</th><th>COUNTRY</th></tr></thead><tbody id="customer-table"><tr><td colspan="6" class="empty-cell">Loading customer data…</td></tr></tbody></table></div><div class="table-footer"><span id="customer-count">—</span><a href="/api/export/segments.csv">Download complete table ↗</a></div></div>
+        <div class="panel chart-panel"><div class="panel-heading"><div><span class="panel-kicker">MODEL DIAGNOSTICS</span><h3>Cluster separation at a glance</h3></div><span class="chart-tag">SCALED RFM FEATURES</span></div><div class="diagnostic-grid"><img src="/segment_scatter.png" alt="Customer cluster scatter plot"><img src="/elbow_curve.png" alt="Elbow curve"></div></div>
+      </section>
+
+      <section class="page" id="page-recommendations">
+        <div class="page-title-row"><div><p class="eyebrow">PERSONALIZATION LAB <span>·</span> 03</p><h1>Product studio</h1><p class="heading-subtitle">Find products a customer may like by looking at customers with similar purchase patterns.</p></div><span class="algorithm-pill"><i></i> COSINE SIMILARITY</span></div>
+        <div class="recommendation-layout">
+          <article class="panel customer-picker"><span class="panel-kicker">SELECT A CUSTOMER</span><h3>Who are we shopping for?</h3><p>Choose a customer from your cleaned transaction history to generate related product ideas.</p><label class="select-label" for="recommend-customer">CUSTOMER ID</label><select id="recommend-customer"><option value="">Loading customer list…</option></select><button class="button button-primary button-full" id="recommend-button">Generate recommendations <span>↗</span></button><div class="picker-foot">Recommendations are based on similar customer baskets, not personal information.</div></article>
+          <div class="recommendation-results" id="recommendation-results"><div class="empty-recommendation"><div class="empty-orbit">✳</div><h3>Your product ideas live here.</h3><p>Select a customer and generate a recommendation set.</p></div></div>
+        </div>
+      </section>
+
+      <section class="page" id="page-transactions">
+        <div class="page-title-row"><div><p class="eyebrow">DATA FOUNDATION <span>·</span> 04</p><h1>Transactions</h1><p class="heading-subtitle">A clean view of the rows powering customer profiles and product suggestions.</p></div><a class="button button-outline" href="/api/export/cleaned.csv">↓ Export cleaned data</a></div>
+        <div class="data-facts" id="data-facts"><div class="fact-box"><span>TRANSACTION LINES</span><strong>—</strong></div><div class="fact-box"><span>PRODUCTS</span><strong>—</strong></div><div class="fact-box"><span>COUNTRIES</span><strong>—</strong></div></div>
+        <div class="panel table-panel"><div class="table-header"><div><span class="panel-kicker">CLEANED TRANSACTION LOG</span><h3>Latest valid purchases</h3></div><span class="chart-tag">EXCLUDES CANCELLATIONS & INVALID ROWS</span></div><div class="table-wrap"><table><thead><tr><th>INVOICE</th><th>DATE</th><th>CUSTOMER</th><th>PRODUCT</th><th>QTY</th><th>UNIT PRICE</th><th>LINE TOTAL</th><th>COUNTRY</th></tr></thead><tbody id="transaction-table"><tr><td colspan="8" class="empty-cell">Loading transactions…</td></tr></tbody></table></div><div class="table-footer"><span>Showing the most recent 25 rows</span><a href="/api/export/cleaned.csv">Download full cleaned dataset ↗</a></div></div>
+        <div class="data-note"><span class="note-mark">i</span><div><strong>What gets cleaned?</strong><p>Rows without a customer, invoice, product, valid date, positive quantity, or positive unit price are removed. Invoice numbers beginning with “C” are treated as cancellations.</p></div></div>
+      </section>
+
+      <footer class="app-footer"><span>ORBIT / CUSTOMER INTELLIGENCE</span><span>Built for practical retail decisions · <b>Local analysis</b></span></footer>
+    </main>
+  </div>
+
+  <dialog id="upload-dialog" class="upload-dialog">
+    <div class="dialog-top"><div><span class="panel-kicker">DATA IMPORT</span><h2>Bring your own retail data</h2></div><button class="dialog-close" id="close-upload" aria-label="Close">×</button></div>
+    <p class="dialog-description">Upload a CSV containing the retail transaction columns. Your file is processed locally by this app.</p>
+    <label class="drop-zone" for="csv-file"><span class="upload-glyph">↑</span><strong>Choose a CSV file</strong><small>Online Retail CSV · up to 80 MB</small><input id="csv-file" type="file" accept=".csv,text/csv"></label>
+    <div class="selected-file" id="selected-file">No file selected</div>
+    <div class="csv-help"><strong>Required columns</strong><span>InvoiceNo · Quantity · InvoiceDate · UnitPrice · CustomerID · Description or StockCode</span></div>
+    <div class="dialog-actions"><button class="button button-outline" id="cancel-upload">Cancel</button><button class="button button-primary" id="start-upload" disabled>Upload & analyse ↗</button></div>
+    <div class="upload-message" id="upload-message" role="status"></div>
+  </dialog>
+  <script src="/app.js"></script>
+</body>
+</html>
